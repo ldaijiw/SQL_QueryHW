@@ -29,4 +29,18 @@ WHERE CompanyName LIKE '%z%';
 ```
 Answer = 6 (if using ``COUNT(*)``)
 
+### Find names of all companies that do not have FAX numbers. Also find with whom to speak with, contact number, and what city they are based in
+```
+SELECT CompanyName, ContactName, Phone, City FROM Customers
+WHERE Fax IS Null
+UNION
+SELECT CompanyName, ContactName, Phone, City FROM Suppliers
+WHERE Fax IS Null;
+```
+Answer = 38 (if using ``COUNT(*)``)
 
+### Find information on customers in Paris
+```
+SELECT * FROM Customers
+WHERE City LIKE 'Paris';
+```
