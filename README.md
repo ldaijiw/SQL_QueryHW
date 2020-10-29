@@ -44,3 +44,26 @@ Answer = 38 (if using ``COUNT(*)``)
 SELECT * FROM Customers
 WHERE City LIKE 'Paris';
 ```
+
+### Find out clients from Paris, who orders most by quantity? Who are our top 5 clients?
+
+```
+SELECT *
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+WHERE Customers.City = 'Paris';
+```
+
+### Need to know more about Paris client, find which deliveries took longer than 10 days. Display business/client name, contact name, all their contact details, as well as number of deliveries that were overdue
+
+```
+SELECT
+Customers.*,
+CASE
+	WHEN DATEDIFF(d, OrderDate, ShippedDate) > 10 THEN 'Overdue'
+ELSE 'On time'
+END AS 'Order Status'
+FROM Customers
+INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+WHERE Customers.City = 'Paris'
+```
